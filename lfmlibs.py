@@ -136,6 +136,52 @@ def lfm_match_album(tracks):
 
     return rovi_ids
 
+def lfm_sum_elements(tracks):
+    """
+    Add up the weights of various theme and mood elements in a track list.
+
+    The goal is to build a weighted list of popular themes and moods by
+    adding up the weighted elements present in listened tracks. 
+
+    The list is built up as a dictionary but returned as two sorted lists, 
+    moods and themes. As such, it drops the actual weight value. 
+
+    One way to enhance this in the future: Trim relatively small moods/themes. 
+    """
+
+    total_moods = { } 
+    total_themes = { } 
+    
+    for track in tracks:
+        moods = track.get("moods", False)
+        # Moods are a list of dicts with three keys: id, name, weight: 
+        if moods: 
+            for tone in moods:
+                my_mood = tone.get("name", None)
+                # This will add to, or create, the key
+                total_moods[my_mood] = int(total_moods.get(my_mood,0)) + \
+                                       int(tone.get('weight', 0))
+        themes = track.get("themes", False)
+        # Themes are a list of dicts with three keys: id, name, weight:
+        if themes:
+            for tone in themes:
+                my_theme = tone.get("name", None)
+                # This will add to, or create, the key
+                total_themes[my_theme] = int(total_themes.get(my_theme, 0)) + \
+                                         int(tone.get('weight', 0))
+
+    moods = [ ] 
+    themes = [ ] 
+
+    # http //stackoverflow.com/questions/613183/python-sort-a-dictionary-by-value
+    for w in sorted(total_moods, key=total_moods.get, reverse=True):
+        moods.append(w)
+    for w in sorted(total_themes, total_themes.get, reverse=True):
+        themes.append(w)
+
+
+    return moods, themes
+
 def lfm_match_tracks(tracks):
     """ 
     Associate Rovi IDs with a list of tracks from LFM listening history
@@ -224,3 +270,6 @@ if __name__ == '__main__':
     clean_tracks = lfm_scrub_json(my_tracks)
     rovi_albums = lfm_match_album(clean_tracks)
     print rovi_albums    
+    moods, themes = lfm_sum_elements(rovi_albums)
+    print moods
+    print themes
