@@ -9,7 +9,9 @@ def lfm_get_info(uid, number):
     my_tracks = lfm_get_history(uid, number)
     clean_tracks = lfm_scrub_json(my_tracks)
     rovi_albums = lfm_match_album(clean_tracks)
-    return rovi_albums
+    rovi_moods, rovi_themes = lfm_sum_elements(rovi_albums)
+
+    return clean_tracks, rovi_moods, rovi_themes
 
 def lfm_get_history(uid, number): 
     """ 
@@ -178,7 +180,6 @@ def lfm_sum_elements(tracks):
         moods.append(w)
     for w in sorted(total_themes, total_themes.get, reverse=True):
         themes.append(w)
-
 
     return moods, themes
 
