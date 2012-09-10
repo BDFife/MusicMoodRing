@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>Music Mood Ring - {{ user }}</title>
+    <link rel="stylesheet" href="{{url_for('static',
+    filename='hack.css')}}" type="text/css">
+  </head>
+  <body>
+    <div class="main">
+      <h1>Music Mood Ring</h1>
+  
+        <p> Here's how {{ user }} is feeling now: <p>
+        <div class="moods">
+        {% for mood in moods %}
+          <p> {{mood}} </p>
+        {% endfor %}
+        </div>
+        <p> This is what {{ user }} is thinking about: <p>
+        <div class="themes">
+        {% for theme in themes %}
+          <p> {{theme}} </p>
+        {% endfor %} 
+        </div> 
+
+        <p> Based on the following listening history: <p>
+        {% for track in tracks %}
+          <p> {{ track.get("track") }} by {{ track.get("artist") }} on
+          {{ track.get("album") }} </p>
+        {% endfor %} 
+    </div><!-- main -->	
+  </body>
+</html>
