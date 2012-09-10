@@ -21,7 +21,6 @@ def index():
 def get_lfm_list(uname):
     my_tracks = lfm_get_info(uname, 20)
     return str(my_tracks)
-#    return render_template('tracklist.html', tracks=my_tracks)
 
 if __name__ == '__main__':
     app.debug = False
