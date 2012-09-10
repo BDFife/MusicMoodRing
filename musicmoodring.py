@@ -22,6 +22,7 @@ def get_lfm_list(uname):
 #    return render_template('tracklist.html', tracks=my_tracks)
 
 if __name__ == '__main__':
-    app.debug = True
+    app.debug = False
+    app.port = int(os.environ.get('PORT', 5000))
     app.run()
-    app.logger.debug('The logger is running, hooray!')
+
