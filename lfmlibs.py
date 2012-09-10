@@ -1,6 +1,12 @@
 import requests
 from secrets import apikey, sign, lfmkey
 
+def lfm_get_info(uid, number):
+    my_tracks = lfm_get_history(uid, number)
+    clean_tracks = lfm_scrub_json(my_tracks)
+    rovi_albums = lfm_match_album(clean_tracks)
+    return rovi_albums
+
 def lfm_get_history(uid, number): 
     """ 
     Get a list of played/scrobbled tracks from a lfm user's history.
@@ -91,8 +97,40 @@ def lfm_match_album(tracks):
     rovi_ids = [ ] 
     for track in tracks:
         # Fixme: handle missing elements in the LFM data? 
-        pass
+        req_vars = {'name': track['album'],
+                    'performername': track['artist'],
+                    'include': 'moods,themes',
+                    'size': 1,
+                    'format': 'json',
+                    'apikey': apikey(),
+                    'sig': sign()}
+ 
+        r = requests.get('http://api.rovicorp.com/recognition/v2.1/music/match/album',
+                         params=req_vars)
         
+        album_match = r.json
+        
+        album_data = album_match.get('matchResponse', False)
+        if album_data:
+            album_data = album_data.get('results', False)
+        if album_data:
+            # This should be a single entry list
+            album_data = album_data[0]
+            album_id = album_data.get('id')
+            album_info = album_data.get('album')
+            rovi_moods = album_info.get('moods')
+            rovi_themes = album_info.get('themes')
+
+            rovi_ids.append({'album_id': album_id,
+                             'track': track['track'],
+                             'artist': track['artist'],
+                             'album': track['album'],
+                             'moods': rovi_moods,
+                             'themes': rovi_themes})
+
+        # Continue looping through the tracks in list above.
+
+    return rovi_ids
 
 def lfm_match_tracks(tracks):
     """ 
@@ -180,5 +218,5 @@ if __name__ == '__main__':
     
     my_tracks = lfm_get_history('bdfife', 20)
     clean_tracks = lfm_scrub_json(my_tracks)
-    rovi_tracks = lfm_match_tracks(clean_tracks)
-    print rovi_tracks    
+    rovi_albums = lfm_match_album(clean_tracks)
+    print rovi_albums    
