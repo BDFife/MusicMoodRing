@@ -15,11 +15,10 @@ import os
 import time
 import hashlib
 
-
 # Insert your own secrets here
-APIKEY = str(os.environ.get('ROVI_KEY', 'your Rovi key')
-LFMKEY = str(os.environ.get('LFM_KEY', 'your last.fm key')
-SECRET = str(os.environ.get('ROVI_SECRET', 'your Rovi secret')
+APIKEY = str(os.environ.get('ROVI_KEY', 'Your Rovi key'))
+LFMKEY = str(os.environ.get('LFM_KEY', 'Your last.fm key'))
+SECRET = str(os.environ.get('ROVI_SECRET', 'Your Rovi secret'))
 
 def apikey():
     return APIKEY
