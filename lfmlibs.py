@@ -1,3 +1,7 @@
+"""
+Last.fm Libraries
+"""
+
 import requests
 from secrets import apikey, sign, lfmkey
 
