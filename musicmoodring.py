@@ -1,3 +1,7 @@
+"""
+Music Mood Ring
+"""
+
 import os
 
 from flask import Flask
