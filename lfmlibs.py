@@ -22,8 +22,10 @@ def lfm_get_history(uid, number):
     
     This calls the last.fm API user.getrecenttracks, and returns a python dict
     generated from the JSON reply. 
+
+    Default number of items per page for last.fm is 50. Maximum tracks per page 
+    is 200. 
     """
-    # Fixme - what is the max number that can be returned in a single page? 
     # Fixme - add in headers as well with a customer user-agent and gzip enabled
     req_vars = {'method': 'user.getrecenttracks',
                 'user': uid,
