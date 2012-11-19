@@ -1,0 +1,62 @@
+/* @override 
+	http://localhost:5000/static/musicmoodring.css */
+
+/* I should never be allowed to 'design'... */
+
+body {
+  background-color: silver;
+}
+
+A:link {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.banner{
+  /* '70s era mood rings go black/gray/amber/green/blue-green/blue/violet */
+
+  /* fixme: either put in multi-browser code or implement a fallback image */
+  background-image: -webkit-gradient(linear, left top, right top, from(black), color-stop(0.2, gray), color-stop(0.25, #929200), color-stop(0.4, green), color-stop(0.45, blue), color-stop(0.5, violet), color-stop(0.55, blue), color-stop(0.6, green), color-stop(0.75, #929200), color-stop(0.8, gray), to(black));
+                    
+  color: white;
+  border-radius:  10px;
+  text-align: center;
+}
+
+.main{
+  background-color:  white;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.moods{
+  float: left;
+}
+
+.themes{
+  float: right;
+}
+.form{
+  text-align: center;
+}
+
+.tracks{
+  clear: both;
+}
+
+#links{
+  color: yellow;
+}
+
+.help{
+  font-size: .8em;
+  text-align: center;
+}
+
+.footer{
+  text-align: center;
+  font-size: .8em;
+}
+
+
+/* @end */

@@ -1,7 +1,7 @@
 <html>
   <head>
     <title>Music Mood Ring</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='hack.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{url_for('static', filename='musicmoodring.css')}}" type="text/css">
     <script type="text/javascript">
       window.onload=setupForm;
       
@@ -16,28 +16,29 @@
         void open(full_url, '_self', false)
         return false
       }
-    </script
+    </script>
       
   </head>
   <body>
-    <div class="main">
+    <div class="banner">
       <h1>Music Mood Ring</h1>
-  
-        <p> Figure out the mood of a last.fm listener based on the themes
-        and moods of the albums they are listening to. </p>
-
-        <p> Start with something basic. Check out a LFM recently
-        played list by accessing /get/mood/username. </p>
-
-        <p> Please bear in mind that a lot of API queries are made
-        when you call this, so it may take a while (10-30s) to
-        return. <p>
-        
-        <form name="lookupArtist" action="">
-          <input name="lfmID" type="text" />
-          <input type="submit" value="Go!" />
-        </form>
-
+    </div><!-- banner -->    
+    <div class="main">          
+        <div class="form">
+          <!-- The main input form - to lookup a l.fm user -->
+          <form name="lookupArtist" action="">
+            Last.fm Username <input name="lfmID" type="text" />
+            <input type="submit" value="Go!" />
+          </form>
+        </div><!-- form -->  
+        <div class="help">
+          <p> Figure out the mood of a last.fm listener based on the themes and moods of the albums they are listening to. </p>
+          
+          <p> Please bear in mind that a lot of API queries are made when you call this, so it may take a while (10-30s) to return. <p>
+        </div><!-- help -->
+        <div class="footer">
+          <a href="{{url_for('about')}}">About</a>
+        </div><!-- footer -->
     </div><!-- main -->	
   </body>
 </html>
